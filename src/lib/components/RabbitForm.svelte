@@ -11,6 +11,9 @@
 	}
 </script>
 
+<label for= "name">Name</label>
+<input id=name type="text" bind:value={name} class = "text-black"/>
+
 <input type="text" bind:value={name} class="text-black" />
 
 <button class="btn btn-primary" onclick={addRabbit} disabled={wrongRabbitName || name.length === 0}
