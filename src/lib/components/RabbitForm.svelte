@@ -1,11 +1,13 @@
 <script>
 	import { goto } from '$app/navigation';
-	import {serverAddress, store } from '$lib/store.svelte.js';
+	import {serverAddress, store, pb } from '$lib/store.svelte.js';
 
 	let rabbit = $state({
 		name: "New Name",
 		rabbithole: ""
 	});
+
+	let rabbitholes = $state([]);
 
 
 	let wrongRabbitName = $derived(rabbit.name.length > 0 && rabbit.name[0] !== 'J');
@@ -14,13 +16,33 @@
 		await store.addRabbit(rabbit);
 		goto("/");
 	}
+
+	$effect(async () => {
+		rabbitholes = await pb.collection('rabbitholes').getFullList();
+		
+	});
 </script>
 
-<input type="text" bind:value={rabbit.name} class = "text-black"/>
 
-<button class="btn btn-primary" onclick={addRabbit} disabled={wrongRabbitName || rabbit.name.length === 0}
-	>Add Rabbit!</button
->
+<div class="flex flex-col gap-2">
+<h1 class = "text-lg font-bold">Add a rabbit</h1>
+<label class="input">
+  <span class="label">Name</span>
+  <input type="text" class="grow" bind:value={rabbit.name} />
+</label>
+
+
+<div>
+	<label class="select">
+		<span class="label">Rabbithole</span>
+		<select bind:value={rabbit.rabbithole}>
+			{#each rabbitholes as rabbithole (rabbithole.id)}
+				<option value={rabbithole.id}>{rabbithole.name}</option>
+			{/each}
+		</select>
+	</label>
+</div>
+
 {#if wrongRabbitName}
 	<div role="alert" class="mt-4 alert alert-error">
 		<svg
@@ -39,3 +61,9 @@
 		<span>Watch out! Rabbit names must start with "J"!</span>
 	</div>
 {/if}
+
+<button class="btn btn-primary" onclick={addRabbit} disabled={wrongRabbitName || rabbit.name.length === 0}
+	>Add Rabbit!</button
+>
+
+</div>
