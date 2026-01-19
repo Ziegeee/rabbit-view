@@ -6,10 +6,12 @@
 
 	let rabbit = $state({
 		name: "New Name",
-		rabbithole: ""
+		rabbithole: "",
+		color: ""
 	});
 
 	let rabbitholes = $state([]);
+	let colors = $state([]);
 
 	let wrongRabbitName = $derived(rabbit.name.length > 0 && rabbit.name[0] !== 'J');
 
@@ -25,6 +27,14 @@ async function saveChanges() {
 
 	$effect(async () => {
 		rabbitholes = await pb.collection('rabbitholes').getFullList();
+		if(rabbitId){
+			rabbit = Object.assign(
+				{},
+				store.rabbits.find(rabbit => rabbitId === rabbit.id)
+			);
+		}});
+	$effect(async () => {
+		colors = await pb.collection('FurColor').getFullList();
 		if(rabbitId){
 			rabbit = Object.assign(
 				{},
@@ -80,7 +90,7 @@ async function saveChanges() {
 
 {#if rabbitId}
 <button class="btn btn-primary" onclick={saveChanges} disabled={wrongRabbitName || rabbit.name.length === 0}
-	>Save hanges!</button>
+	>Save Changes!</button>
 {:else}
 <button class="btn btn-primary" onclick={addRabbit} disabled={wrongRabbitName || rabbit.name.length === 0}
 	>Add Rabbit!</button>
