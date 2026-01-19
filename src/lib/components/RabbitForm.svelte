@@ -7,11 +7,11 @@
 	let rabbit = $state({
 		name: "New Name",
 		rabbithole: "",
-		color: ""
+		FurColor: ""
 	});
 
 	let rabbitholes = $state([]);
-	let colors = $state([]);
+	let FurColors = $state([]);
 
 	let wrongRabbitName = $derived(rabbit.name.length > 0 && rabbit.name[0] !== 'J');
 
@@ -27,18 +27,11 @@ async function saveChanges() {
 
 	$effect(async () => {
 		rabbitholes = await pb.collection('rabbitholes').getFullList();
+		FurColors = await pb.collection('FurColors').getFullList();
 		if(rabbitId){
 			rabbit = Object.assign(
 				{},
-				store.rabbits.find(rabbit => rabbitId === rabbit.id)
-			);
-		}});
-	$effect(async () => {
-		colors = await pb.collection('FurColor').getFullList();
-		if(rabbitId){
-			rabbit = Object.assign(
-				{},
-				store.rabbits.find(rabbit => rabbitId === rabbit.id)
+				store.rabbits.find((rabbit) => rabbitId === rabbit.id)
 			);
 		}
 	});
@@ -64,6 +57,17 @@ async function saveChanges() {
 		<select bind:value={rabbit.rabbithole}>
 			{#each rabbitholes as rabbithole (rabbithole.id)}
 				<option value={rabbithole.id}>{rabbithole.name}</option>
+			{/each}
+		</select>
+	</label>
+</div>
+
+<div>
+	<label class="select">
+		<span class="label">Color</span>
+		<select bind:value={rabbit.FurColor}>
+			{#each FurColors as FurColor (FurColor.id)}
+				<option value={FurColor.id}>{FurColor.name}</option>
 			{/each}
 		</select>
 	</label>
