@@ -31,7 +31,7 @@
             </fieldset>
             <fieldset class="fieldset">
         <legend class="fieldset-legend">Username</legend>
-        <input type="email" class="input" placeholder="How should we call you?" bind:value={username}/>
+        <input type="text" class="input" placeholder="How should we call you?" bind:value={username}/>
             </fieldset>
             <fieldset class="fieldset">
         <legend class="fieldset-legend">Password</legend>
