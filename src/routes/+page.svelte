@@ -35,7 +35,13 @@
 		{:else}
 		<div></div>
 		{/if}
-		<div class="pr-3">{rabbit.expand.Fur}</div>
+
+		{#if rabbit.expand.FurColor}
+		<div class="pr-3">{rabbit.expand.FurColor.name}</div>
+		{:else}
+		<div></div>
+		{/if}
+		
 		<a href={"/"+rabbit.id}>
 			<div class="pr-3">
 				<button class="cursor-pointer"><Icon icon="carbon:edit" width="16" height="16" /></button>
