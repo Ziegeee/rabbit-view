@@ -17,12 +17,13 @@
 </script>
 
 <!-- unser Template / HTML-Teil der Seite bzw. der Komponente -->
-<h1 class="text-3xl">Our Rabbits</h1>
+<h1 class="text-3xl font-bold">Our Rabbits</h1>
 
-<div class="grid w-[200px] grid-cols-[32px_1fr_1fr_32px_32px] items-end">
-	<div>Nr.</div>
-	<div>Name</div>
-	<div>Hasenbau</div>
+<div class="grid w-[200px] grid-cols-[32px_1fr_1fr_1fr_32px_32px] items-end">
+	<div class="font-bold">Nr.</div>
+	<div class="font-bold">Name</div>
+	<div class="font-bold">Hasenbau</div>
+	<div class="font-bold">Farbe</div>
 	<div></div>
 	<div></div>
 
@@ -34,6 +35,7 @@
 		{:else}
 		<div></div>
 		{/if}
+		<div class="pr-3">{rabbit.expand.Fur}</div>
 		<a href={"/"+rabbit.id}>
 			<div class="pr-3">
 				<button class="cursor-pointer"><Icon icon="carbon:edit" width="16" height="16" /></button>
