@@ -20,7 +20,7 @@
 		goto("/");
 	}
 
-async function saveChanges() {
+	async function saveChanges() {
 		await store.editRabbit(rabbitId, rabbit);
 		goto("/");
 	}
