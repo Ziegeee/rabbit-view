@@ -1,7 +1,8 @@
 <script>
 	import '../app.css';
-	import {store} from '$lib/store.svelte.js';
+	import {store,pb} from '$lib/store.svelte.js';
 	import favicon from '$lib/assets/favicon.svg';
+	import {goto} from '$app/navigation';
 
 	let { children } = $props();
 
@@ -15,6 +16,10 @@
 
 	// unser "Konstruktor" (lifecycle hook) - läuft jedesmal, wenn die Seite bzw. die Komponente geladen wird:
 	$effect(() => {
+		if (!pb.authStore.isValid) {
+			goto('/auth');
+		}
+
 		store.listRabbits();
 		if (localStorage.getItem('theme')) theme = localStorage.getItem('theme');
 		$inspect('🐰: ', store.rabbits);
